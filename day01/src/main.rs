@@ -5,7 +5,29 @@ fn main() {
     println!("{}", solve_part_two(include_str!("../input.txt")));
 }
 
-fn solve_part_one(input: &str) -> i32 {
+fn top_n_elves(input: &str, n: usize) -> i32 {
+    let mut res: Vec<i32> = input
+        .lines()
+        .fold(Vec::new(), |mut acc, x| {
+            if acc.is_empty() || x.is_empty() {
+                acc.push(Vec::new())
+            }
+            if !x.is_empty() {
+                // Not sure if this can be cleaner, e.g. how expensive is x.is_empty()
+                acc.last_mut().unwrap().push(x.parse::<i32>().unwrap());
+            }
+            acc
+        })
+        .iter()
+        .map(|x| x.iter().sum())
+        .collect();
+    res.sort(); // This is not optimal, but i cant be bothered to write it uwu O(n) vs O(n logn)
+
+    res.iter().rev().take(n).sum()
+}
+
+#[allow(dead_code)]
+fn solve_part_one_simple(input: &str) -> i32 {
     let mut max = i32::MIN;
     let mut current = 0;
     for l in input.lines() {
@@ -19,26 +41,14 @@ fn solve_part_one(input: &str) -> i32 {
     max.max(current)
 }
 
-fn solve_part_two(input: &str) -> i32 {
-    let mut res: Vec<i32> = input
-        .lines()
-        .fold(Vec::new(), |mut acc, x| {
-            if acc.is_empty() || x.is_empty() {
-                acc.push(Vec::new())
-            }
-            if !x.is_empty() {
-                // Not sure if this can be cleaner, e.g. how expensive is x.is_empty()
-                acc.last_mut().unwrap().push(x);
-            }
-            acc
-        })
-        .iter()
-        .map(|x| x.iter().map(|y| y.parse::<i32>().unwrap()).sum::<i32>())
-        .collect();
-    res.sort(); // This is not optimal, but i cant be bothered to write it uwu O(n) vs O(n logn)
-
-    res.iter().rev().take(3).sum()
+fn solve_part_one(input: &str) -> i32 {
+    top_n_elves(input, 1)
 }
+
+fn solve_part_two(input: &str) -> i32 {
+    top_n_elves(input, 3)
+}
+
 #[cfg(test)]
 mod tests {
     mod pt1 {
