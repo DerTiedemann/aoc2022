@@ -1,8 +1,8 @@
-use std::collections::BinaryHeap;
-
 fn main() {
-    println!("{}", solve_part_one(include_str!("../input.txt")));
-    println!("{}", solve_part_two(include_str!("../input.txt")));
+    const DAY: &str = env!("CARGO_PKG_NAME");
+    println!("++{DAY}++");
+    println!("Part 1: {}", solve_part_one(include_str!("../input.txt")));
+    println!("Part 2: {}", solve_part_two(include_str!("../input.txt")));
 }
 
 fn top_n_elves(input: &str, n: usize) -> i32 {
