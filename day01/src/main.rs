@@ -7,6 +7,17 @@ fn main() {
 
 fn top_n_elves(input: &str, n: usize) -> i32 {
     let mut res: Vec<i32> = input
+        .split("\n\n")
+        .map(|batch| batch.lines().map(|x| x.parse::<i32>().unwrap()).sum())
+        .collect();
+    res.sort(); // This is not optimal, but i cant be bothered to write it uwu O(n) vs O(n logn)
+
+    res.iter().rev().take(n).sum()
+}
+
+#[allow(dead_code)]
+fn top_n_elves_old(input: &str, n: usize) -> i32 {
+    let mut res: Vec<i32> = input
         .lines()
         .fold(Vec::new(), |mut acc, x| {
             if acc.is_empty() || x.is_empty() {
