@@ -10,9 +10,9 @@ fn main() {
 
 fn score(c: char) -> i32 {
     if c.is_ascii_lowercase() {
-        c as i32 - 96
+        c as i32 - 'a' as i32 + 1
     } else {
-        c as i32 - 64 + 26
+        c as i32 - 'A' as i32 + 1 + 26
     }
 }
 
@@ -31,9 +31,7 @@ fn solve_part_one(input: &str) -> i32 {
                 b.insert(i);
             }
 
-            let c = a.intersection(&b).next().unwrap().to_owned();
-
-            score(c)
+            score(*a.intersection(&b).next().unwrap())
         })
         .sum()
 }
