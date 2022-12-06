@@ -2,7 +2,7 @@
 #![feature(test)]
 extern crate test;
 
-use std::{collections::HashSet, ops::Deref};
+use std::ops::Deref;
 
 fn main() {
     const DAY: &str = env!("CARGO_PKG_NAME");
@@ -34,15 +34,15 @@ fn find_marker(data: &str, marker_len: usize) -> usize {
     data.len()
 }
 fn find_first_n_distict_char_offset(input: &str, n: usize) -> usize {
-    let binding = input.trim().chars().collect::<Vec<_>>();
-    let a = binding
+    let chars = input.trim().chars().collect::<Vec<_>>();
+    let offset = chars
         .windows(n)
-        .take_while(|x| {
-            !x.iter()
-                .all(|c| x.iter().filter(|d| d.deref() == c).count() == 1)
+        .take_while(|w| {
+            !w.iter()
+                .all(|c| w.iter().filter(|d| d.deref() == c).count() == 1)
         })
         .count();
-    a + n
+    n + offset
 }
 
 fn solve_part_one(input: &str) -> usize {
