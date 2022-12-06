@@ -1,6 +1,6 @@
 #![feature(iter_array_chunks)]
 
-use std::{collections::HashSet, ops::Deref};
+use std::collections::HashSet;
 
 fn main() {
     const DAY: &str = env!("CARGO_PKG_NAME");
