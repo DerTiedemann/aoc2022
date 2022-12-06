@@ -12,6 +12,7 @@ fn main() {
 }
 
 // Open ai solution
+#[allow(dead_code)]
 fn find_marker(data: &str, marker_len: usize) -> usize {
     let mut chars = vec![];
 
@@ -32,22 +33,24 @@ fn find_marker(data: &str, marker_len: usize) -> usize {
 
     data.len()
 }
-#[allow(dead_code)]
-fn find_first_n_distict_char_offset(input: &str, n: usize) -> i32 {
+fn find_first_n_distict_char_offset(input: &str, n: usize) -> usize {
     let binding = input.trim().chars().collect::<Vec<_>>();
     let a = binding
         .windows(n)
-        .take_while(|x| x.iter().collect::<HashSet<_>>().len() != n)
+        .take_while(|x| {
+            !x.iter()
+                .all(|c| x.iter().filter(|d| d.deref() == c).count() == 1)
+        })
         .count();
-    (a + n).try_into().unwrap()
+    a + n
 }
 
 fn solve_part_one(input: &str) -> usize {
-    find_marker(input, 4)
+    find_first_n_distict_char_offset(input, 4)
 }
 
 fn solve_part_two(input: &str) -> usize {
-    find_marker(input, 14)
+    find_first_n_distict_char_offset(input, 14)
 }
 
 #[cfg(test)]
