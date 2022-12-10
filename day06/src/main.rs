@@ -1,8 +1,6 @@
-#![feature(iter_array_chunks)]
-#![feature(test)]
-extern crate test;
-
 use std::ops::Deref;
+
+use day06;
 
 fn main() {
     const DAY: &str = env!("CARGO_PKG_NAME");
@@ -11,73 +9,16 @@ fn main() {
     println!("Part 2: {}", solve_part_two(include_str!("../input.txt")));
 }
 
-// Open ai solution
-#[allow(dead_code)]
-fn find_marker(data: &str, marker_len: usize) -> usize {
-    let mut chars = vec![];
-
-    for (i, c) in data.chars().enumerate() {
-        chars.push(c);
-        if chars.len() > marker_len {
-            chars.remove(0);
-        }
-
-        if chars.len() == marker_len
-            && chars
-                .iter()
-                .all(|c| chars.iter().filter(|d| d.deref() == c).count() == 1)
-        {
-            return i + 1;
-        }
-    }
-
-    data.len()
-}
-fn find_first_n_distict_char_offset(input: &str, n: usize) -> usize {
-    let chars = input.trim().chars().collect::<Vec<_>>();
-    let offset = chars
-        .windows(n)
-        .take_while(|w| {
-            !w.iter()
-                .all(|c| w.iter().filter(|d| d.deref() == c).count() == 1)
-        })
-        .count();
-    n + offset
+pub fn solve_part_one(input: &str) -> usize {
+    day06::find_first_n_distict_char_offset(input, 4)
 }
 
-fn solve_part_one(input: &str) -> usize {
-    find_first_n_distict_char_offset(input, 4)
-}
-
-fn solve_part_two(input: &str) -> usize {
-    find_first_n_distict_char_offset(input, 14)
+pub fn solve_part_two(input: &str) -> usize {
+    day06::find_first_n_distict_char_offset(input, 14)
 }
 
 #[cfg(test)]
 mod tests {
-    mod bench {
-        use crate::{find_first_n_distict_char_offset, find_marker};
-        use test::Bencher;
-
-        #[bench]
-        fn bench_human_solution(b: &mut Bencher) {
-            b.iter(|| {
-                let result = find_first_n_distict_char_offset(include_str!("../input.txt"), 4);
-                assert_eq!(result, 1779);
-                let result = find_first_n_distict_char_offset(include_str!("../input.txt"), 14);
-                assert_eq!(result, 2635);
-            });
-        }
-        #[bench]
-        fn bench_machine_solution(b: &mut Bencher) {
-            b.iter(|| {
-                let result = find_marker(include_str!("../input.txt"), 4);
-                assert_eq!(result, 1779);
-                let result = find_marker(include_str!("../input.txt"), 14);
-                assert_eq!(result, 2635);
-            });
-        }
-    }
 
     mod pt1 {
         use crate::solve_part_one;
