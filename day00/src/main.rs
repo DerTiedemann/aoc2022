@@ -1,5 +1,3 @@
-use std::ops::Deref;
-
 fn main() {
     const DAY: &str = env!("CARGO_PKG_NAME");
     println!("++{DAY}++");
@@ -23,13 +21,13 @@ mod tests {
         #[test]
         fn example_0() {
             let result = solve_part_one(include_str!("../test.txt"));
-            assert_eq!(result, -1);
+            assert_eq!(result, 1);
         }
 
         #[test]
         fn result() {
             let result = solve_part_one(include_str!("../input.txt"));
-            assert_eq!(result, -1);
+            assert_eq!(result, 1);
         }
     }
     mod pt2 {
@@ -37,14 +35,14 @@ mod tests {
 
         #[test]
         fn example_0() {
-            let result = solve_part_two(include_str!("../text.txt"));
-            assert_eq!(result, -1);
+            let result = solve_part_two(include_str!("../test.txt"));
+            assert_eq!(result, 1);
         }
 
         #[test]
         fn result() {
             let result = solve_part_two(include_str!("../input.txt"));
-            assert_eq!(result, -1);
+            assert_eq!(result, 1);
         }
     }
 }
