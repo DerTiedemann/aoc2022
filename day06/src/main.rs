@@ -1,7 +1,3 @@
-use std::ops::Deref;
-
-use day06;
-
 fn main() {
     const DAY: &str = env!("CARGO_PKG_NAME");
     println!("++{DAY}++");

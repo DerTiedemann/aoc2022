@@ -1,8 +1,4 @@
-use std::{
-    collections::HashMap,
-    fmt::{self, Write},
-    ops::Deref,
-};
+use std::{collections::HashMap, ops::Deref};
 
 // i didnt solve this one today and this effectively just yoinked this code: https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=2d4c298f177b67438066b275a5a8e152
 
